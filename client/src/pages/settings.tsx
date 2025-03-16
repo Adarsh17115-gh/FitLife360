@@ -154,7 +154,7 @@ export default function Settings() {
                 </TabsTrigger>
               </TabsList>
             </div>
-            
+
             <TabsContent value="account" className="space-y-6 pt-4">
               <div className="grid grid-cols-1 md:grid-cols-[1fr_300px] gap-6">
                 <Card>
@@ -180,7 +180,7 @@ export default function Settings() {
                             </FormItem>
                           )}
                         />
-                        
+
                         <FormField
                           control={profileForm.control}
                           name="email"
@@ -194,7 +194,7 @@ export default function Settings() {
                             </FormItem>
                           )}
                         />
-                        
+
                         <FormField
                           control={profileForm.control}
                           name="avatar"
@@ -208,7 +208,7 @@ export default function Settings() {
                             </FormItem>
                           )}
                         />
-                        
+
                         <Button 
                           type="submit" 
                           className="mt-4"
@@ -220,7 +220,7 @@ export default function Settings() {
                     </Form>
                   </CardContent>
                 </Card>
-                
+
                 <Card>
                   <CardHeader>
                     <CardTitle>Your Profile</CardTitle>
@@ -238,7 +238,7 @@ export default function Settings() {
                       {currentUser.role.charAt(0).toUpperCase() + currentUser.role.slice(1)}
                     </p>
                     <p className="mt-2 text-sm">{currentUser.email}</p>
-                    
+
                     <div className="mt-6 w-full">
                       <div className="flex justify-between text-sm">
                         <span>Username</span>
@@ -253,7 +253,7 @@ export default function Settings() {
                   </CardContent>
                 </Card>
               </div>
-              
+
               <Card>
                 <CardHeader>
                   <CardTitle>Security</CardTitle>
@@ -278,7 +278,7 @@ export default function Settings() {
                             </FormItem>
                           )}
                         />
-                        
+
                         <FormField
                           control={passwordForm.control}
                           name="newPassword"
@@ -292,7 +292,7 @@ export default function Settings() {
                             </FormItem>
                           )}
                         />
-                        
+
                         <FormField
                           control={passwordForm.control}
                           name="confirmPassword"
@@ -307,7 +307,7 @@ export default function Settings() {
                           )}
                         />
                       </div>
-                      
+
                       <Button 
                         type="submit" 
                         className="mt-4"
@@ -317,9 +317,9 @@ export default function Settings() {
                       </Button>
                     </form>
                   </Form>
-                  
+
                   <Separator className="my-6" />
-                  
+
                   <div className="space-y-4">
                     <div>
                       <h3 className="text-lg font-medium">Two-Factor Authentication</h3>
@@ -327,7 +327,7 @@ export default function Settings() {
                         Add an extra layer of security to your account
                       </p>
                     </div>
-                    
+
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <Shield className="h-5 w-5 text-gray-500" />
@@ -338,7 +338,7 @@ export default function Settings() {
                   </div>
                 </CardContent>
               </Card>
-              
+
               <Card>
                 <CardHeader>
                   <CardTitle className="text-destructive">Danger Zone</CardTitle>
@@ -364,7 +364,7 @@ export default function Settings() {
                 </CardContent>
               </Card>
             </TabsContent>
-            
+
             <TabsContent value="notifications" className="space-y-6 pt-4">
               <Card>
                 <CardHeader>
@@ -376,7 +376,7 @@ export default function Settings() {
                 <CardContent className="space-y-6">
                   <div className="space-y-4">
                     <h3 className="font-medium">App Notifications</h3>
-                    
+
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
                         <Label htmlFor="workout-reminders" className="flex flex-1 items-center gap-2">
@@ -385,7 +385,7 @@ export default function Settings() {
                         </Label>
                         <Switch id="workout-reminders" defaultChecked />
                       </div>
-                      
+
                       <div className="flex items-center justify-between">
                         <Label htmlFor="challenge-updates" className="flex flex-1 items-center gap-2">
                           <Smartphone className="h-4 w-4 text-gray-500" />
@@ -393,7 +393,7 @@ export default function Settings() {
                         </Label>
                         <Switch id="challenge-updates" defaultChecked />
                       </div>
-                      
+
                       <div className="flex items-center justify-between">
                         <Label htmlFor="family-activity" className="flex flex-1 items-center gap-2">
                           <Smartphone className="h-4 w-4 text-gray-500" />
@@ -401,7 +401,7 @@ export default function Settings() {
                         </Label>
                         <Switch id="family-activity" defaultChecked />
                       </div>
-                      
+
                       <div className="flex items-center justify-between">
                         <Label htmlFor="ai-coach" className="flex flex-1 items-center gap-2">
                           <Smartphone className="h-4 w-4 text-gray-500" />
@@ -411,12 +411,12 @@ export default function Settings() {
                       </div>
                     </div>
                   </div>
-                  
+
                   <Separator />
-                  
+
                   <div className="space-y-4">
                     <h3 className="font-medium">Email Notifications</h3>
-                    
+
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
                         <Label htmlFor="weekly-summary" className="flex flex-1 items-center gap-2">
@@ -425,7 +425,7 @@ export default function Settings() {
                         </Label>
                         <Switch id="weekly-summary" defaultChecked />
                       </div>
-                      
+
                       <div className="flex items-center justify-between">
                         <Label htmlFor="new-challenges" className="flex flex-1 items-center gap-2">
                           <Mail className="h-4 w-4 text-gray-500" />
@@ -433,7 +433,7 @@ export default function Settings() {
                         </Label>
                         <Switch id="new-challenges" defaultChecked />
                       </div>
-                      
+
                       <div className="flex items-center justify-between">
                         <Label htmlFor="account-updates" className="flex flex-1 items-center gap-2">
                           <Mail className="h-4 w-4 text-gray-500" />
@@ -441,7 +441,7 @@ export default function Settings() {
                         </Label>
                         <Switch id="account-updates" defaultChecked />
                       </div>
-                      
+
                       <div className="flex items-center justify-between">
                         <Label htmlFor="promotional-emails" className="flex flex-1 items-center gap-2">
                           <Mail className="h-4 w-4 text-gray-500" />
@@ -460,7 +460,7 @@ export default function Settings() {
                 </CardFooter>
               </Card>
             </TabsContent>
-            
+
             <TabsContent value="preferences" className="space-y-6 pt-4">
               <Card>
                 <CardHeader>
@@ -472,7 +472,7 @@ export default function Settings() {
                 <CardContent className="space-y-6">
                   <div className="space-y-4">
                     <h3 className="font-medium">Appearance</h3>
-                    
+
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
                         <Label htmlFor="dark-mode" className="flex flex-1 items-center gap-2">
@@ -490,65 +490,31 @@ export default function Settings() {
                       </div>
                     </div>
                   </div>
-                  
+
                   <Separator />
-                  
+
                   <div className="space-y-4">
                     <h3 className="font-medium">Units & Measurements</h3>
-                    
+
                     <div className="space-y-4">
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="distance-unit">Distance</Label>
-                          <select
-                            id="distance-unit"
-                            className="flex h-10 w-full rounded-md border border-gray-300 dark:border-gray-600 bg-transparent px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-primary"
-                            defaultValue="miles"
-                          >
-                            <option value="miles">Miles</option>
-                            <option value="kilometers">Kilometers</option>
-                          </select>
-                        </div>
-                        
-                        <div className="space-y-2">
-                          <Label htmlFor="weight-unit">Weight</Label>
-                          <select
-                            id="weight-unit"
-                            className="flex h-10 w-full rounded-md border border-gray-300 dark:border-gray-600 bg-transparent px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-primary"
-                            defaultValue="pounds"
-                          >
-                            <option value="pounds">Pounds (lbs)</option>
-                            <option value="kilograms">Kilograms (kg)</option>
-                          </select>
-                        </div>
-                      </div>
-                      
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="height-unit">Height</Label>
-                          <select
-                            id="height-unit"
-                            className="flex h-10 w-full rounded-md border border-gray-300 dark:border-gray-600 bg-transparent px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-primary"
-                            defaultValue="feetInches"
-                          >
-                            <option value="feetInches">Feet & Inches</option>
-                            <option value="centimeters">Centimeters</option>
-                          </select>
-                        </div>
-                        
-                        <div className="space-y-2">
-                          <Label htmlFor="calories-goal">Daily Calorie Goal</Label>
-                          <Input id="calories-goal" type="number" defaultValue="2000" />
-                        </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="calories-goal">Daily Calorie Goal</Label>
+                        <Input
+                          id="calories-goal"
+                          type="number"
+                          defaultValue={2000}
+                          min={500}
+                          max={10000}
+                        />
                       </div>
                     </div>
                   </div>
-                  
+
                   <Separator />
-                  
+
                   <div className="space-y-4">
                     <h3 className="font-medium">Connected Accounts</h3>
-                    
+
                     <div className="space-y-4">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
@@ -563,7 +529,7 @@ export default function Settings() {
                           Connect
                         </Button>
                       </div>
-                      
+
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
                           <Globe className="h-5 w-5 text-black dark:text-white" />
@@ -587,7 +553,7 @@ export default function Settings() {
                   </Button>
                 </CardFooter>
               </Card>
-              
+
               <Card>
                 <CardHeader>
                   <CardTitle>Data & Privacy</CardTitle>
@@ -607,9 +573,9 @@ export default function Settings() {
                       Export Data
                     </Button>
                   </div>
-                  
+
                   <Separator />
-                  
+
                   <div className="flex items-center justify-between">
                     <div>
                       <h3 className="font-medium">Data Sharing</h3>
