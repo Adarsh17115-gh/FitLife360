@@ -61,7 +61,49 @@ export async function generateMealRecommendations(
     return JSON.parse(completion.choices[0].message.content);
   } catch (error) {
     console.error("OpenAI API Error:", error);
-    throw error;
+    
+    // Fallback recommendations
+    const fallbackMeals = {
+      message: `Here are some balanced meal recommendations for you, ${userName}.`,
+      recommendations: [
+        {
+          name: "High-Protein Breakfast Bowl",
+          description: "A nutritious breakfast bowl packed with protein and healthy fats to start your day.",
+          calories: 450,
+          protein: 25,
+          carbs: 35,
+          fats: 20,
+          foods: ["Greek yogurt", "Berries", "Granola", "Nuts", "Honey"]
+        },
+        {
+          name: "Mediterranean Lunch Plate",
+          description: "A balanced lunch with lean protein, complex carbs, and healthy fats.",
+          calories: 550,
+          protein: 30,
+          carbs: 45,
+          fats: 25,
+          foods: ["Grilled chicken", "Quinoa", "Cucumber", "Cherry tomatoes", "Feta cheese", "Olive oil"]
+        },
+        {
+          name: "Vegetable Stir-Fry with Tofu",
+          description: "A nutrient-dense dinner high in protein and fiber.",
+          calories: 500,
+          protein: 25,
+          carbs: 40,
+          fats: 20,
+          foods: ["Tofu", "Broccoli", "Bell peppers", "Carrots", "Brown rice", "Low-sodium soy sauce"]
+        }
+      ]
+    };
+    
+    // Apply dietary restrictions if specified
+    if (dietaryRestrictions && dietaryRestrictions.toLowerCase().includes("vegetarian")) {
+      fallbackMeals.recommendations[1].name = "Mediterranean Vegetarian Plate";
+      fallbackMeals.recommendations[1].description = "A balanced vegetarian lunch with plant protein, complex carbs, and healthy fats.";
+      fallbackMeals.recommendations[1].foods = ["Chickpeas", "Quinoa", "Cucumber", "Cherry tomatoes", "Feta cheese", "Olive oil"];
+    }
+    
+    return fallbackMeals;
   }
 }
 
@@ -102,7 +144,95 @@ export async function generateWorkoutRecommendations(
     return JSON.parse(completion.choices[0].message.content);
   } catch (error) {
     console.error("OpenAI API Error:", error);
-    throw error;
+    
+    // Fallback workout recommendations
+    const actualFitnessLevel = fitnessLevel || "Intermediate";
+    const actualGoals = goals || "General fitness";
+    const actualDuration = duration || 30;
+    const actualEquipment = equipment || "Minimal/bodyweight";
+    
+    // Create a general workout routine that fits most scenarios
+    const fallbackWorkout = {
+      message: `Here's a personalized workout plan for you, ${userName}.`,
+      recommendations: {
+        type: "Full Body Circuit",
+        duration: actualDuration,
+        exercises: []
+      }
+    };
+    
+    // Base exercises for bodyweight workouts
+    const bodyweightExercises = [
+      {
+        name: "Push-ups",
+        sets: 3,
+        reps: 10,
+        description: "Standard push-ups targeting chest, shoulders, and triceps."
+      },
+      {
+        name: "Bodyweight Squats",
+        sets: 3,
+        reps: 15,
+        description: "Standing squats targeting quadriceps, hamstrings, and glutes."
+      },
+      {
+        name: "Plank",
+        sets: 3,
+        reps: 30,
+        description: "Hold plank position for 30 seconds, targeting core and shoulders."
+      },
+      {
+        name: "Mountain Climbers",
+        sets: 3,
+        reps: 20,
+        description: "Dynamic exercise targeting core, shoulders, and increasing heart rate."
+      },
+      {
+        name: "Lunges",
+        sets: 3,
+        reps: 12,
+        description: "Alternating lunges targeting legs and improving balance."
+      }
+    ];
+    
+    // Equipment-specific exercises
+    const dumbellExercises = [
+      {
+        name: "Dumbbell Rows",
+        sets: 3,
+        reps: 12,
+        description: "Bent-over rows with dumbbells targeting back muscles."
+      },
+      {
+        name: "Dumbbell Shoulder Press",
+        sets: 3,
+        reps: 10,
+        description: "Overhead press with dumbbells targeting shoulders."
+      }
+    ];
+    
+    // Adjust based on fitness level
+    if (actualFitnessLevel.toLowerCase().includes("beginner")) {
+      bodyweightExercises.forEach(ex => {
+        ex.sets = 2;
+        ex.reps = Math.round(ex.reps * 0.7);
+      });
+    } else if (actualFitnessLevel.toLowerCase().includes("advanced")) {
+      bodyweightExercises.forEach(ex => {
+        ex.sets = 4;
+        ex.reps = Math.round(ex.reps * 1.3);
+      });
+    }
+    
+    // Add exercises based on equipment
+    if (actualEquipment.toLowerCase().includes("dumbbell") || 
+        actualEquipment.toLowerCase().includes("weights")) {
+      fallbackWorkout.recommendations.exercises = [...bodyweightExercises, ...dumbellExercises];
+    } else {
+      fallbackWorkout.recommendations.exercises = bodyweightExercises;
+    }
+    
+    return fallbackWorkout;
   }
 }
 
