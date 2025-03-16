@@ -28,6 +28,13 @@ export default function WeeklyActivityChart() {
     { day: "Sat", steps: 9000, calories: 2000, activeMinutes: 60, sleep: 480 },
     { day: "Sun", steps: 3000, calories: 1200, activeMinutes: 20, sleep: 390 },
   ];
+  
+  // Calculate average for the selected metric
+  const calculateAverage = (metric: MetricType): number => {
+    return mockData.reduce((sum, item) => sum + item[metric], 0) / mockData.length;
+  };
+  
+  const averageValue = calculateAverage(selectedMetric);
 
   // Combine real dates with mock data
   const chartData = weekDates.map((date, index) => ({
@@ -115,8 +122,11 @@ export default function WeeklyActivityChart() {
               dataKey={selectedMetric} 
               radius={[4, 4, 0, 0]} 
               maxBarSize={60}
-              fillOpacity={0.9}
-              fill={(entry) => getBarColor(entry)}
+              fill="#0EA5E9" 
+              style={{ fillOpacity: 0.9 }}
+              onMouseEnter={(data) => {
+                // Additional hover effect could be implemented here if needed
+              }}
             />
           </BarChart>
         </ResponsiveContainer>
