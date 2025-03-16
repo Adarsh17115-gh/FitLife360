@@ -38,7 +38,7 @@ export default function WeeklyActivityChart() {
 
   // Combine real dates with mock data
   const chartData = weekDates.map((date, index) => ({
-    day: getDayName(date, true),
+    dayAbbr: getDayName(date, true),  // Use a different property name to avoid duplicate 'day'
     date: date,
     ...mockData[index],
   }));
@@ -60,7 +60,7 @@ export default function WeeklyActivityChart() {
 
   const getBarColor = (entry: any) => {
     // Highlight Saturday as it's in the design
-    return entry.day === "Sat" ? "#10B981" : "#0EA5E9";
+    return entry.dayAbbr === "Sat" ? "#10B981" : "#0EA5E9";
   };
 
   return (
@@ -96,7 +96,7 @@ export default function WeeklyActivityChart() {
             }}
           >
             <XAxis
-              dataKey="day"
+              dataKey="dayAbbr"
               tick={{ fontSize: 12 }}
               tickLine={false}
               axisLine={false}

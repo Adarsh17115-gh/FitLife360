@@ -46,17 +46,33 @@ export function truncateText(text: string, maxLength: number): string {
 }
 
 export function getWeekDates(): Date[] {
-  const today = new Date();
-  const day = today.getDay(); // 0 is Sunday, 6 is Saturday
-  const diff = today.getDate() - day + (day === 0 ? -6 : 1); // Adjust when today is Sunday
+  // Get current date
+  const now = new Date();
   
-  const monday = new Date(today.setDate(diff));
-  monday.setHours(0, 0, 0, 0);
+  // Find the current day of the week (0-6, where 0 is Sunday)
+  const currentDay = now.getDay();
   
-  const weekDates = [];
+  // Calculate how many days to go back to Monday
+  // If today is Sunday (0), we need to go back 6 days
+  // If today is Monday (1), we go back 0 days, etc.
+  const daysToMonday = currentDay === 0 ? 6 : currentDay - 1;
+  
+  // Create array to hold the 7 dates
+  const weekDates: Date[] = [];
+  
+  // Start with Monday
   for (let i = 0; i < 7; i++) {
-    const date = new Date(monday);
-    date.setDate(monday.getDate() + i);
+    // Create a new date object for each day to avoid reference issues
+    const date = new Date(now);
+    
+    // Set date to Monday (today - daysToMonday) + current iteration
+    // This ensures we start with Monday and go forward
+    date.setDate(now.getDate() - daysToMonday + i);
+    
+    // Reset time to midnight
+    date.setHours(0, 0, 0, 0);
+    
+    // Add to week dates array
     weekDates.push(date);
   }
   
