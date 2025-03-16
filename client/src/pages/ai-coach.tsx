@@ -148,14 +148,15 @@ export default function AICoach() {
 
       {/* Mobile Sidebar - conditionally rendered */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-black bg-opacity-50" onClick={toggleMobileMenu}>
+        <>
+          <div className="fixed inset-0 z-40 bg-black bg-opacity-50" onClick={toggleMobileMenu} />
           <aside 
-            className="fixed inset-y-0 left-0 w-64 bg-sidebar dark:bg-gray-800 text-sidebar-foreground overflow-y-auto"
+            className="fixed inset-y-0 left-0 w-64 z-50 bg-sidebar dark:bg-gray-800 text-sidebar-foreground overflow-y-auto shadow-lg"
             onClick={(e) => e.stopPropagation()}
           >
             <Sidebar />
           </aside>
-        </div>
+        </>
       )}
 
       {/* Main Content Area */}
