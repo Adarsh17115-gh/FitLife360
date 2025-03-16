@@ -56,35 +56,11 @@ export default function HealthSummary() {
   
   return (
     <section>
-      <div className="mb-4 flex items-center justify-between">
+      <div className="mb-4">
         <CardTitle className="text-xl">Health Summary</CardTitle>
-        <div className="flex items-center gap-2">
-          <span className="text-sm text-gray-500 dark:text-gray-400">{format(date, 'MMM d, yyyy')}</span>
-          <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
-            <PopoverTrigger asChild>
-              <Button variant="outline" size="sm" className="gap-2">
-                <Calendar size={16} />
-                Change Date
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="end">
-              <Calendar
-                mode="single"
-                selected={date}
-                onSelect={(newDate) => {
-                  if (newDate) {
-                    setDate(newDate);
-                    setCalendarOpen(false);
-                  }
-                }}
-                initialFocus
-              />
-            </PopoverContent>
-          </Popover>
-        </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 mt-4">
         <HealthMetricCard
           icon={<StepForward size={24} />}
           title="Steps"
