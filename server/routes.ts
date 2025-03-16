@@ -4,13 +4,13 @@ import { storage } from "./storage";
 import { insertUserSchema, insertFamilySchema, insertHealthMetricsSchema, insertWorkoutSchema, 
   insertUserWorkoutSchema, insertMealSchema, insertChallengeSchema, 
   insertUserChallengeSchema, insertAIConversationSchema } from "@shared/schema";
-import OpenAI from 'openai';
+import openai, { 
+  generateMealRecommendations, 
+  generateWorkoutRecommendations, 
+  processAICoachMessage 
+} from "./openai";
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Initialize OpenAI API client
-  const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY || "sk-your-api-key",
-  });
 
   // User routes
   app.get("/api/users/:id", async (req, res) => {
