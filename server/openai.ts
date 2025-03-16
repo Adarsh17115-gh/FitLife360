@@ -146,10 +146,10 @@ export async function generateWorkoutRecommendations(
     console.error("OpenAI API Error:", error);
     
     // Fallback workout recommendations
-    const actualFitnessLevel = fitnessLevel || "Intermediate";
-    const actualGoals = goals || "General fitness";
-    const actualDuration = duration || 30;
-    const actualEquipment = equipment || "Minimal/bodyweight";
+    const actualFitnessLevel = options.fitnessLevel || "Intermediate";
+    const actualGoals = options.goals || "General fitness";
+    const actualDuration = options.duration || 30;
+    const actualEquipment = options.equipment || "Minimal/bodyweight";
     
     // Create a general workout routine that fits most scenarios
     const fallbackWorkout = {

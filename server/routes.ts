@@ -412,20 +412,43 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const userName = user.name || user.username;
       const fallbackMeals = {
         message: `Here are some balanced meal recommendations for you, ${userName}.`,
-        recommendations: {
-          protein: 90,
-          carbs: 200,
-          fats: 65,
-          calories: 1800,
-          foods: [
-            "Greek yogurt with berries and granola",
-            "Vegetarian chili with quinoa",
-            "Lentil soup with whole grain bread",
-            "Tofu stir-fry with brown rice",
-            "Spinach salad with chickpeas and avocado"
-          ]
-        }
+        recommendations: [
+          {
+            name: "High-Protein Breakfast Bowl",
+            description: "A nutritious breakfast bowl packed with protein and healthy fats to start your day.",
+            calories: 450,
+            protein: 25,
+            carbs: 35,
+            fats: 20,
+            foods: ["Greek yogurt", "Berries", "Granola", "Nuts", "Honey"]
+          },
+          {
+            name: "Mediterranean Lunch Plate",
+            description: "A balanced lunch with lean protein, complex carbs, and healthy fats.",
+            calories: 550,
+            protein: 30,
+            carbs: 45,
+            fats: 25,
+            foods: ["Grilled chicken", "Quinoa", "Cucumber", "Cherry tomatoes", "Feta cheese", "Olive oil"]
+          },
+          {
+            name: "Vegetable Stir-Fry with Tofu",
+            description: "A nutrient-dense dinner high in protein and fiber.",
+            calories: 500,
+            protein: 25,
+            carbs: 40,
+            fats: 20,
+            foods: ["Tofu", "Broccoli", "Bell peppers", "Carrots", "Brown rice", "Low-sodium soy sauce"]
+          }
+        ]
       };
+      
+      // Apply dietary restrictions if specified
+      if (dietaryRestrictions && dietaryRestrictions.toLowerCase().includes("vegetarian")) {
+        fallbackMeals.recommendations[1].name = "Mediterranean Vegetarian Plate";
+        fallbackMeals.recommendations[1].description = "A balanced vegetarian lunch with plant protein, complex carbs, and healthy fats.";
+        fallbackMeals.recommendations[1].foods = ["Chickpeas", "Quinoa", "Cucumber", "Cherry tomatoes", "Feta cheese", "Olive oil"];
+      }
       
       // Send the fallback response
       res.json(fallbackMeals);
