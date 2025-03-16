@@ -20,6 +20,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { getCurrentUser } from "@/lib/utils";
 import {
+  Mail,
   User,
   Lock,
   Bell,

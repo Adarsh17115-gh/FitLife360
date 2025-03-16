@@ -40,23 +40,55 @@ export default function Dashboard() {
         <FamilyProfileSwitcher />
 
         <div className="p-4 sm:p-6 space-y-6 pb-20 md:pb-6">
-          {/* Health Summary */}
-          <HealthSummary />
+          {/* Welcome Banner */}
+          <div className="bg-gradient-to-r from-primary/20 to-primary/5 rounded-lg p-6 mb-6">
+            <h2 className="text-2xl font-bold mb-2">Welcome to FitLife360!</h2>
+            <p className="text-gray-600 dark:text-gray-300">Track your health, challenge your family, and achieve your fitness goals together.</p>
+            <div className="mt-4 flex flex-wrap gap-3">
+              <button className="bg-primary hover:bg-primary/90 text-white font-medium py-2 px-4 rounded-md transition-colors">
+                Start Workout
+              </button>
+              <button className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 text-primary border border-primary font-medium py-2 px-4 rounded-md transition-colors">
+                Log Nutrition
+              </button>
+            </div>
+          </div>
+          
+          {/* Daily Overview */}
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-200">Today's Overview</h3>
+            <HealthSummary />
+          </div>
 
-          {/* Weekly Activity Chart */}
-          <WeeklyActivityChart />
+          {/* Weekly Activity Chart with better title */}
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-200">Activity Trends</h3>
+            <WeeklyActivityChart />
+          </div>
 
           {/* Two Column Layout for Family Challenges and Nutrition */}
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-            <FamilyChallenges />
-            <NutritionCard />
+            <div>
+              <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-200">Family Challenges</h3>
+              <FamilyChallenges />
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-200">Nutrition Tracking</h3>
+              <NutritionCard />
+            </div>
           </div>
 
           {/* Upcoming Workouts */}
-          <UpcomingWorkouts />
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-200">Upcoming Workouts</h3>
+            <UpcomingWorkouts />
+          </div>
 
           {/* AI Coach Preview */}
-          <AICoachPreview />
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-200">AI Fitness Coach</h3>
+            <AICoachPreview />
+          </div>
         </div>
       </main>
 
