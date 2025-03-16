@@ -455,7 +455,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Direct AI chat for hardcoded post-workout meal request (special case)
+  // Direct AI chat endpoint with hardcoded post-workout meal response
   app.post("/api/ai/chat", async (req, res) => {
     const { userId, message } = req.body;
     
@@ -467,7 +467,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
     
     // Continue with the normal flow for other questions
-    
     if (!userId || !message) {
       return res.status(400).json({ message: "User ID and message are required" });
     }
