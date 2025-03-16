@@ -126,7 +126,17 @@ export async function processAICoachMessage(messages: any[]): Promise<string> {
     return completion.choices[0].message.content || "";
   } catch (error) {
     console.error("OpenAI API Error:", error);
-    throw error;
+    
+    // Provide a fallback response if OpenAI API fails
+    const lastUserMessage = messages.findLast(msg => msg.role === "user")?.content || "";
+    
+    if (lastUserMessage.toLowerCase().includes("workout")) {
+      return "I'd be happy to suggest a workout! Here's a quick 15-minute routine you can do at home:\n\n- 2 minutes warm-up with light jogging in place\n- 30 seconds jumping jacks\n- 30 seconds push-ups (modified if needed)\n- 30 seconds bodyweight squats\n- 30 seconds plank\n- 30 seconds rest\n- Repeat 3 times\n\nFinish with 2 minutes of stretching. Would you like more specific exercises targeting certain muscle groups?";
+    } else if (lastUserMessage.toLowerCase().includes("nutrition") || lastUserMessage.toLowerCase().includes("diet") || lastUserMessage.toLowerCase().includes("meal")) {
+      return "Great question about nutrition! A balanced diet is key to fitness success. Try to include:\n\n- Lean proteins (chicken, fish, tofu)\n- Complex carbs (whole grains, sweet potatoes)\n- Healthy fats (avocados, nuts, olive oil)\n- Plenty of vegetables and fruits\n\nAim for balanced meals and stay hydrated throughout the day. Would you like some specific meal ideas?";
+    } else {
+      return "Thanks for your message! As your fitness coach, I'm here to help with workout plans, nutrition advice, and wellness strategies. Could you provide more details about your fitness goals so I can give you personalized guidance?";
+    }
   }
 }
 

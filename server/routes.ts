@@ -350,23 +350,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
     
     // Get AI response
     try {
-      const completion = await openai.chat.completions.create({
-        model: "gpt-4o", // the newest OpenAI model is "gpt-4o" which was released May 13, 2024. do not change this unless explicitly requested by the user
-        messages: [
-          {
-            role: "system",
-            content: "You are a helpful fitness and wellness coach named FitLife AI. You provide personalized advice on fitness, nutrition, and general wellness. Keep responses concise, motivational, and actionable."
-          },
-          ...newMessages
-        ],
-        max_tokens: 500
-      });
+      // Process the message using our OpenAI helper
+      const aiResponseContent = await processAICoachMessage([
+        {
+          role: "system",
+          content: "You are a helpful fitness and wellness coach named FitLife AI. You provide personalized advice on fitness, nutrition, and general wellness. Keep responses concise, motivational, and actionable."
+        },
+        ...newMessages
+      ]);
       
       // Add AI response to conversation
-      const aiResponse = completion.choices[0].message;
       const updatedMessages = [...newMessages, { 
-        role: aiResponse.role, 
-        content: aiResponse.content 
+        role: "assistant", 
+        content: aiResponseContent 
       }];
       
       // Update conversation in storage
@@ -401,25 +397,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const recentMeals = await storage.getMealsForUser(userId);
     
     try {
-      const completion = await openai.chat.completions.create({
-        model: "gpt-4o", // the newest OpenAI model is "gpt-4o" which was released May 13, 2024. do not change this unless explicitly requested by the user
-        messages: [
-          {
-            role: "system",
-            content: "You are a nutrition expert. Generate personalized meal recommendations based on user preferences, dietary restrictions, and recent meal history. Format the response as JSON with 3 meal recommendations, each containing name, description, calories, protein, ingredients, and instructions."
-          },
-          {
-            role: "user",
-            content: `Generate meal recommendations for ${user.name}. 
-            ${preferences ? `Preferences: ${preferences}` : ''}
-            ${dietaryRestrictions ? `Dietary restrictions: ${dietaryRestrictions}` : ''}
-            Recent meals: ${JSON.stringify(recentMeals.map(m => m.name).slice(0, 5))}`
-          }
-        ],
-        response_format: { type: "json_object" }
-      });
+      // Use our helper function to generate meal recommendations
+      const recommendations = await generateMealRecommendations(
+        user.name || user.username,
+        recentMeals.map(m => m.name).slice(0, 5),
+        preferences,
+        dietaryRestrictions
+      );
       
-      const recommendations = JSON.parse(completion.choices[0].message.content);
       res.json(recommendations);
     } catch (error) {
       console.error("OpenAI API Error:", error);
@@ -442,26 +427,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
     
     try {
-      const completion = await openai.chat.completions.create({
-        model: "gpt-4o", // the newest OpenAI model is "gpt-4o" which was released May 13, 2024. do not change this unless explicitly requested by the user
-        messages: [
-          {
-            role: "system",
-            content: "You are a fitness expert. Generate personalized workout recommendations based on user fitness level, goals, available time, and equipment. Format the response as JSON with workout title, description, duration, intensity, and exercises array (each with name, sets, reps, and rest)."
-          },
-          {
-            role: "user",
-            content: `Generate a workout for ${user.name}.
-            ${fitnessLevel ? `Fitness level: ${fitnessLevel}` : 'Fitness level: Intermediate'}
-            ${goals ? `Goals: ${goals}` : 'Goals: General fitness'}
-            ${duration ? `Duration: ${duration} minutes` : 'Duration: 30 minutes'}
-            ${equipment ? `Equipment: ${equipment}` : 'Equipment: None (bodyweight)'}`
-          }
-        ],
-        response_format: { type: "json_object" }
-      });
+      // Use our helper function to generate workout recommendations
+      const workout = await generateWorkoutRecommendations(
+        user.name || user.username,
+        {
+          fitnessLevel,
+          goals,
+          duration,
+          equipment
+        }
+      );
       
-      const workout = JSON.parse(completion.choices[0].message.content);
       res.json(workout);
     } catch (error) {
       console.error("OpenAI API Error:", error);
