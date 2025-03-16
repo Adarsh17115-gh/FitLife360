@@ -114,7 +114,6 @@ export default function WeeklyActivityChart() {
             <Bar 
               dataKey={selectedMetric} 
               radius={[4, 4, 0, 0]} 
-              fill="#0EA5E9" 
               maxBarSize={60}
               fillOpacity={0.9}
               fill={(entry) => getBarColor(entry)}
