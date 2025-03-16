@@ -61,64 +61,7 @@ export async function generateMealRecommendations(
     return JSON.parse(completion.choices[0].message.content);
   } catch (error) {
     console.error("OpenAI API Error:", error);
-    
-    // Provide fallback meal recommendations when API fails
-    const hasVeganRestriction = dietaryRestrictions?.toLowerCase().includes('vegan');
-    const hasGlutenRestriction = dietaryRestrictions?.toLowerCase().includes('gluten');
-    
-    return {
-      message: `Here are some nutritious meal ideas for you, ${userName}!`,
-      recommendations: [
-        {
-          name: hasVeganRestriction ? "Vegan Buddha Bowl" : "Grilled Chicken Bowl",
-          description: hasVeganRestriction 
-            ? "A nutrient-packed bowl with quinoa, roasted vegetables, and tahini dressing" 
-            : "Lean protein with mixed vegetables and whole grains",
-          calories: hasVeganRestriction ? 450 : 520,
-          protein: hasVeganRestriction ? 15 : 35,
-          carbs: 55,
-          fats: 18,
-          ingredients: hasVeganRestriction 
-            ? ["Quinoa", "Sweet potato", "Chickpeas", "Kale", "Avocado", "Tahini", "Lemon juice", "Spices"] 
-            : ["Chicken breast", "Brown rice", "Broccoli", "Bell peppers", "Olive oil", "Lemon", "Herbs"],
-          instructions: "Cook grains, prepare protein, roast vegetables, and assemble in a bowl with sauce/dressing."
-        },
-        {
-          name: hasGlutenRestriction ? "Gluten-Free Veggie Omelet" : "Whole Grain Breakfast Bowl",
-          description: "Protein-rich breakfast to fuel your morning",
-          calories: 380,
-          protein: 22,
-          carbs: hasGlutenRestriction ? 12 : 38,
-          fats: 24,
-          ingredients: hasGlutenRestriction 
-            ? ["Eggs", "Spinach", "Mushrooms", "Bell peppers", "Avocado", "Cheese", "Herbs"] 
-            : ["Oats", "Greek yogurt", "Banana", "Berries", "Honey", "Almonds", "Cinnamon"],
-          instructions: hasGlutenRestriction
-            ? "Whisk eggs, sauté vegetables, pour eggs over, cook until set, fold and serve."
-            : "Cook oats, top with yogurt, add fruit, nuts, and honey."
-        },
-        {
-          name: "Mediterranean Salad" + (hasGlutenRestriction ? " (GF)" : ""),
-          description: "Fresh and nutritious salad with " + (hasVeganRestriction ? "plant protein" : "lean protein"),
-          calories: 420,
-          protein: hasVeganRestriction ? 14 : 28,
-          carbs: 30,
-          fats: 22,
-          ingredients: [
-            hasGlutenRestriction ? "Gluten-free grains" : "Whole grain couscous", 
-            "Cucumber", 
-            "Cherry tomatoes", 
-            "Red onion", 
-            "Bell peppers",
-            hasVeganRestriction ? "Chickpeas" : "Grilled chicken/fish", 
-            "Olive oil",
-            hasVeganRestriction ? "Lemon juice" : "Feta cheese",
-            "Herbs"
-          ],
-          instructions: "Prepare grains, chop vegetables, add protein, dress with olive oil and lemon, season and serve."
-        }
-      ]
-    };
+    throw error;
   }
 }
 
