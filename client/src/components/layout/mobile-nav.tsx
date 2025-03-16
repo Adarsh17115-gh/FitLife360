@@ -33,7 +33,7 @@ const NavItem = ({ href, icon, children }: NavItemProps) => {
 
 export default function MobileNav() {
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-40 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 md:hidden">
+    <nav className="fixed bottom-0 left-0 right-0 z-30 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 md:hidden">
       <div className="flex items-center justify-around">
         <NavItem href="/dashboard" icon={<LayoutDashboard size={20} />}>
           Dashboard
