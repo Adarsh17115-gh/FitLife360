@@ -67,3 +67,17 @@ export async function createAIConversation(userId: number, initialMessage?: stri
     throw error;
   }
 }
+
+// New direct AI chat function that doesn't require conversation storage
+export async function chatWithAICoach(userId: number, message: string) {
+  try {
+    const response = await apiRequest("POST", "/api/ai/chat", {
+      userId,
+      message
+    });
+    return await response.json();
+  } catch (error) {
+    console.error("Error chatting with AI coach:", error);
+    throw error;
+  }
+}

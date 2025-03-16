@@ -212,12 +212,12 @@ export async function generateWorkoutRecommendations(
     ];
     
     // Adjust based on fitness level
-    if (actualFitnessLevel.toLowerCase().includes("beginner")) {
+    if (actualFitnessLevel && actualFitnessLevel.toLowerCase().includes("beginner")) {
       bodyweightExercises.forEach(ex => {
         ex.sets = 2;
         ex.reps = Math.round(ex.reps * 0.7);
       });
-    } else if (actualFitnessLevel.toLowerCase().includes("advanced")) {
+    } else if (actualFitnessLevel && actualFitnessLevel.toLowerCase().includes("advanced")) {
       bodyweightExercises.forEach(ex => {
         ex.sets = 4;
         ex.reps = Math.round(ex.reps * 1.3);
@@ -225,8 +225,8 @@ export async function generateWorkoutRecommendations(
     }
     
     // Add exercises based on equipment
-    if (actualEquipment.toLowerCase().includes("dumbbell") || 
-        actualEquipment.toLowerCase().includes("weights")) {
+    if (actualEquipment && (actualEquipment.toLowerCase().includes("dumbbell") || 
+        actualEquipment.toLowerCase().includes("weights"))) {
       fallbackWorkout.recommendations.exercises = [...bodyweightExercises, ...dumbellExercises];
     } else {
       fallbackWorkout.recommendations.exercises = bodyweightExercises;
