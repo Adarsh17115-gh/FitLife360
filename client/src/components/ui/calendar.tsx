@@ -1,11 +1,67 @@
 import * as React from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
-import { DayPicker } from "react-day-picker"
+import { DayPicker, useNavigation } from "react-day-picker"
 
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>
+
+// Custom navigation component to avoid nested button issue
+function CustomNavigation({ 
+  displayMonth, 
+  goToMonth, 
+  nextMonth, 
+  previousMonth 
+}: any) {
+  function handlePreviousClick() {
+    if (previousMonth) {
+      goToMonth(previousMonth);
+    }
+  }
+
+  function handleNextClick() {
+    if (nextMonth) {
+      goToMonth(nextMonth);
+    }
+  }
+
+  return (
+    <div className="flex justify-between items-center px-1">
+      <div
+        role="button"
+        className="flex h-7 w-7 items-center justify-center rounded-md border border-input bg-background p-0 opacity-50 hover:opacity-100 hover:bg-accent hover:text-accent-foreground"
+        onClick={handlePreviousClick}
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            handlePreviousClick();
+          }
+        }}
+        aria-label="Go to previous month"
+      >
+        <ChevronLeft className="h-4 w-4" />
+      </div>
+      <div className="text-sm font-medium">
+        {displayMonth.toLocaleString('default', { month: 'long', year: 'numeric' })}
+      </div>
+      <div
+        role="button"
+        className="flex h-7 w-7 items-center justify-center rounded-md border border-input bg-background p-0 opacity-50 hover:opacity-100 hover:bg-accent hover:text-accent-foreground"
+        onClick={handleNextClick}
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            handleNextClick();
+          }
+        }}
+        aria-label="Go to next month"
+      >
+        <ChevronRight className="h-4 w-4" />
+      </div>
+    </div>
+  );
+}
 
 function Calendar({
   className,
@@ -21,13 +77,8 @@ function Calendar({
         months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
         month: "space-y-4",
         caption: "flex justify-center pt-1 relative items-center",
-        caption_label: "text-sm font-medium",
-        nav: "space-x-1 flex items-center",
-        nav_button: cn(
-          "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 flex items-center justify-center rounded-md border border-input bg-background hover:bg-accent hover:text-accent-foreground"
-        ),
-        nav_button_previous: "absolute left-1",
-        nav_button_next: "absolute right-1",
+        caption_label: "sr-only", // Hide the default caption label
+        nav: "hidden", // Hide the default navigation
         table: "w-full border-collapse space-y-1",
         head_row: "flex",
         head_cell:
@@ -50,8 +101,17 @@ function Calendar({
         ...classNames,
       }}
       components={{
-        IconLeft: ({ ...props }) => <ChevronLeft className="h-4 w-4" />,
-        IconRight: ({ ...props }) => <ChevronRight className="h-4 w-4" />,
+        Caption: ({ displayMonth }) => {
+          const { goToMonth, nextMonth, previousMonth } = useNavigation();
+          return (
+            <CustomNavigation 
+              displayMonth={displayMonth}
+              goToMonth={goToMonth}
+              nextMonth={nextMonth}
+              previousMonth={previousMonth}
+            />
+          );
+        }
       }}
       {...props}
     />
