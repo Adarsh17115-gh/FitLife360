@@ -1,3 +1,13 @@
+
+@keyframes progressFill {
+  from { width: 0%; }
+  to { width: var(--progress); }
+}
+
+.progress-bar-animate {
+  animation: progressFill 1s ease-out forwards;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

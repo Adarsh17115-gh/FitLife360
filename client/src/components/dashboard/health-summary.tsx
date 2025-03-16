@@ -53,7 +53,32 @@ export default function HealthSummary() {
   } : healthMetrics;
 
   const sleepHours = metrics?.sleep ? metrics.sleep / 60 : 0;
-  
+
+  if (isLoading) {
+    return (
+      <section>
+        <div className="mb-4">
+          <CardTitle className="text-xl">Health Summary</CardTitle>
+        </div>
+
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 mt-4">
+          {Array(4).fill(0).map((_, i) => (
+            <div key={i} className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 shadow-sm animate-pulse">
+              <div className="flex items-center">
+                <div className="w-6 h-6 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+                <div className="ml-2 h-4 w-20 bg-gray-200 dark:bg-gray-700 rounded"></div>
+              </div>
+              <div className="mt-4">
+                <div className="h-8 w-24 bg-gray-200 dark:bg-gray-700 rounded mb-2"></div>
+                <div className="h-2 w-full bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section>
       <div className="mb-4">
@@ -68,7 +93,7 @@ export default function HealthSummary() {
           target={10000}
           progress={calculateProgress(metrics?.steps || 0, 10000)}
         />
-        
+
         <HealthMetricCard
           icon={<Clock size={24} />}
           title="Active Minutes"
@@ -76,7 +101,7 @@ export default function HealthSummary() {
           target={60}
           progress={calculateProgress(metrics?.activeMinutes || 0, 60)}
         />
-        
+
         <HealthMetricCard
           icon={<Flame size={24} />}
           title="Calories"
@@ -85,7 +110,7 @@ export default function HealthSummary() {
           unit="kcal"
           progress={85} // Hard-coded for now
         />
-        
+
         <HealthMetricCard
           icon={<ActivitySquare size={24} />}
           title="Sleep"
