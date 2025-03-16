@@ -40,9 +40,6 @@ const HealthMetricCard = ({ icon, title, value, target, unit, progress }: Health
 );
 
 export default function HealthSummary() {
-  const [date, setDate] = useState<Date>(new Date());
-  const [calendarOpen, setCalendarOpen] = useState(false);
-  
   const { data: healthMetrics, isLoading } = useQuery({
     queryKey: ['/api/users/1/health-metrics'],
   });
